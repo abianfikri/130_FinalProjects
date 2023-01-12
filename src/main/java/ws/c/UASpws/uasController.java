@@ -21,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author Abian
+ * @author Abian Ayatullah Fikri
+ * 20200140130
+ * 
  */
 @RestController
 @ResponseBody
