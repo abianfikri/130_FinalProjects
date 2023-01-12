@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>UAS Web Service</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <div>Data Diri</div><hr/>
+        
+        <script>
+            
+            function post() {
+                const url = "http://localhost:8080/POST";
+                let editID = document.getElementById("id").value;
+		let name = document.getElementById("name").value;
+		let nik = document.getElementById("nik").value;
+                let address = document.getElementById("address").value;
+                let photo = document.getElementById("photo").value;
+		let dataText = {"id":editID,"name":name,"nik":nik, "address":address};
+		let dataJson = JSON.stringify(dataText).concat(photo);
+                
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                });
+            }
+            
+            function put() {
+                
+                const urlp = "http://localhost:8080/PUT";
+                
+                let editID = document.getElementById("id").value;
+		let name = document.getElementById("name").value;
+		let nik = document.getElementById("nik").value;
+                let address = document.getElementById("address").value;
+		let dataText = {"id":editID,"name":name,"nik":nik, "address":address};
+		let dataJson = JSON.stringify(dataText);
+                
+                $.ajax({
+                    url: urlp,
+                    method: 'PUT',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                });
+            }
+            
+            function get(){
+                const urlg = "http://localhost:8080/GET";
+                $.ajax({
+                    url: urlg,
+                    method: 'GET',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                });
+            }
+            
+            function del() {
+                
+                const urlg = "http://localhost:8080/DELETE";
+                let editID = document.getElementById("id").value;
+		let name = document.getElementById("name").value;
+		let nik = document.getElementById("nik").value;
+                let address = document.getElementById("address").value;
+		let dataText = {"id":editID,"name":name,"nik":nik, "address":address};
+		let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                        url: urlg,
+                        method: 'DELETE',
+                        data: dataJson,
+                        contentType: 'application/json',
+                        dataType: 'text',
+                        success: function(result){
+                                document.getElementById("viewer").innerHTML = result;
+                        }
+                });
+            }
+            
+            
+        </script>
+        
+        <table>
+            <tr>
+                <td>ID</td>
+                <td><input type="text" id="id" name="id"/></td>
+            </tr>
+            
+            <tr>
+                <td>Name</td>
+                <td><input type="text" id="name" name="name"/></td>
+            </tr>
+            
+            <tr>
+                <td>NIK</td>
+                <td><input type="text" id="nik" name="nik"/></td>
+            </tr>
+            
+            <tr>
+                <td>Address</td>
+                <td><input type="text" id="address" name="address"/></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" id="photo" name="photo"/></td>
+            </tr>
+            
+            <tr>
+                <td><button onclick="get()">GET</button> <br/></td>
+                <td><button onclick="post()">CREATE</button> <br/></td>
+            </tr>
+            
+            <tr>
+                <td><button onclick="put()">EDIT</button> <br/></td>
+                <td><button onclick="del()">DELETE</button><br/></td>
+            </tr>
+        </table>
+        
+        
+        <hr/>
+        <div id="viewer"></div>
+    </body>
+</html>
